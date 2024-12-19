@@ -1,9 +1,14 @@
+import { QueryClient } from '@tanstack/react-query';
 import { createRouter as createTanStackRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 
 export function createRouter() {
+  const queryClient = new QueryClient();
   const router = createTanStackRouter({
-    routeTree
+    routeTree,
+    context: { queryClient },
+    defaultPreload: 'intent',
+    defaultNotFoundComponent: () => <div>Not found</div>
   });
 
   return router;

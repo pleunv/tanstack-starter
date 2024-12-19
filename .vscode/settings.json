@@ -4,7 +4,11 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit"
   },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
   "javascript.preferences.importModuleSpecifierEnding": "js",
   "typescript.preferences.importModuleSpecifierEnding": "js",
-  "typescript.preferences.preferTypeOnlyAutoImports": true
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "tailwindCSS.experimental.configFile": "./packages/website/app/styles/app.css"
 }
