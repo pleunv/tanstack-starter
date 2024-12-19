@@ -17,13 +17,12 @@ const getCount = createServerFn({
 const updateCount = createServerFn({ method: 'POST' })
   .validator((d: number) => d)
   .handler(async ({ data }) => {
-    const count = await readCount();
-    await fs.promises.writeFile(filePath, `${count + data}`);
+    await fs.promises.writeFile(filePath, `${(await readCount()) + data}`);
   });
 
 export const Route = createFileRoute('/')({
   component: Home,
-  loader: async () => await getCount()
+  loader: () => getCount()
 });
 
 function Home() {
@@ -36,10 +35,9 @@ function Home() {
       <button
         className="mb-4 cursor-pointer rounded-lg bg-gray-900 px-8 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-gray-800"
         type="button"
-        onClick={() => {
-          updateCount({ data: 1 }).then(() => {
-            router.invalidate();
-          });
+        onClick={async () => {
+          await updateCount({ data: 1 });
+          await router.invalidate();
         }}
       >
         Add 1
